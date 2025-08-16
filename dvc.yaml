@@ -1,0 +1,49 @@
+stages:
+  data_ingestion:
+    cmd: python /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_ingestion.py
+    deps:
+    - /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_ingestion.py
+    params:
+    - data_ingestion.test_size
+    outs:
+    - data/raw
+
+  data_preprocessing:
+    cmd: python /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_preprocessing.py
+    deps:
+    - data/raw/train.csv
+    - data/raw/test.csv
+    - /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_preprocessing.py
+    outs:
+    - data/interim
+
+  model_building:
+    cmd: python /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_builder.py
+    deps:
+    - data/interim
+    - /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_builder.py
+    params:
+    - model_building.ngram_range
+    - model_building.max_features
+    - model_building.learning_rate
+    - model_building.max_depth
+    - model_building.n_estimators
+    outs:
+    - lgbm_model.pkl
+    - tfidf_vectorizer.pkl
+
+  model_evaluation:
+    cmd: python /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_evaluation.py
+    deps:
+    - lgbm_model.pkl
+    - tfidf_vectorizer.pkl
+    - data/interim
+    - /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_evaluation.py
+    outs:
+    - experiment_info.json 
+
+  register_model:
+    cmd: python /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/register_model.py 
+    deps:
+    - experiment_info.json
+    - /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/register_model.py 

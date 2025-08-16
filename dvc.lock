@@ -1,0 +1,110 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python 
+      /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_ingestion.py
+    deps:
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: c792310b9365d2adb8f4bb2c4cbe4821
+      size: 4220
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.2
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: b855e2bab4e21078d44844fee5be9da3.dir
+      size: 6882906
+      nfiles: 2
+  data_preprocessing:
+    cmd: python 
+      /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/data/data_preprocessing.py
+    deps:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 295b88d81555e67a857db0337244e118
+      size: 1341252
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 70faef66e6135c49f7f02db4a55e9fdd
+      size: 5541654
+    - path: src/data/data_preprocessing.py
+      hash: md5
+      md5: 9df011c15cf72fad8aa564f6a3238f29
+      size: 3675
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: a2bbccdc23dd271231099f8d5c99ff87.dir
+      size: 5098055
+      nfiles: 2
+  model_building:
+    cmd: python 
+      /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_builder.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: a2bbccdc23dd271231099f8d5c99ff87.dir
+      size: 5098055
+      nfiles: 2
+    - path: src/model/model_builder.py
+      hash: md5
+      md5: fd2e5a501601116a3bf8d2b8a59853ff
+      size: 5473
+    params:
+      params.yaml:
+        model_building.learning_rate: 0.09
+        model_building.max_depth: 20
+        model_building.max_features: 1000
+        model_building.n_estimators: 367
+        model_building.ngram_range:
+        - 1
+        - 3
+    outs:
+    - path: lgbm_model.pkl
+      hash: md5
+      md5: e9a6b3fb07521dccae358877ff9c1057
+      size: 3904461
+    - path: tfidf_vectorizer.pkl
+      hash: md5
+      md5: da546b49d02f5736ca33b257e00b7068
+      size: 36873
+  model_evaluation:
+    cmd: python 
+      /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/model_evaluation.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: a2bbccdc23dd271231099f8d5c99ff87.dir
+      size: 5098055
+      nfiles: 2
+    - path: lgbm_model.pkl
+      hash: md5
+      md5: e9a6b3fb07521dccae358877ff9c1057
+      size: 3904461
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: 872f9e1bd79af53f76b07607d63b52b8
+      size: 7136
+    - path: tfidf_vectorizer.pkl
+      hash: md5
+      md5: da546b49d02f5736ca33b257e00b7068
+      size: 36873
+    outs:
+    - path: experiment_info.json
+      hash: md5
+      md5: 3ff654ad465c7b67b2b574cdb1797a96
+      size: 84
+  register_model:
+    cmd: python 
+      /Users/harishsundaralingam/myworkspace/sentiment_analysis/src/model/register_model.py
+    deps:
+    - path: experiment_info.json
+      hash: md5
+      md5: 3ff654ad465c7b67b2b574cdb1797a96
+      size: 84
+    - path: src/model/register_model.py
+      hash: md5
+      md5: 41ff5f7b8feea28d80985e67e298098d
+      size: 2395
