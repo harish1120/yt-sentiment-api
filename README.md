@@ -22,32 +22,32 @@ This project provides an end-to-end solution for analyzing YouTube video comment
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         YouTube Sentiment Analysis                           │
+│                         YouTube Sentiment Analysis                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │   Data      │───▶│  Data        │───▶│   Model     │───▶│    Model    │  │
-│  │ Ingestion   │    │ Preprocessing│    │  Building   │    │ Evaluation  │  │
-│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘  │
+│                                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │
+│  │   Data      │───▶│  Data        │───▶│   Model     │───▶│    Model   │   │
+│  │ Ingestion   │    │ Preprocessing│    │  Building   │    │ Evaluation │   │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘   │
 │         │                  │                   │                  │         │
 │         ▼                  ▼                   ▼                  ▼         │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
-│  │   DVC       │    │    NLP      │    │   LightGBM  │    │   MLflow    │  │
-│  │   Pipeline  │    │  Pipeline   │    │  + TF-IDF   │    │  Tracking   │  │
-│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘  │
-│                                                                           │
-│  ┌─────────────────────────────────────────────────────────────────┐     │
-│  │                        FastAPI Backend                           │     │
-│  │  /predict  /predict_with_timestamps  /generate_chart            │     │
-│  │  /generate_wordcloud  /generate_trend_graph                     │     │
-│  └─────────────────────────────────────────────────────────────────┘     │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │
+│  │   DVC       │    │    NLP      │    │   LightGBM  │    │   MLflow    │   │
+│  │   Pipeline  │    │  Pipeline   │    │  + TF-IDF   │    │  Tracking   │   │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────┐        │
+│  │                        FastAPI Backend                          │        │
+│  │  /predict  /predict_with_timestamps  /generate_chart            │        │
+│  │  /generate_wordcloud  /generate_trend_graph                     │        │
+│  └─────────────────────────────────────────────────────────────────┘        │
 │                                    │                                        │
 │                                    ▼                                        │
-│  ┌─────────────────────────────────────────────────────────────────┐     │
-│  │                   Chrome Extension (Frontend)                    │     │
-│  │     YouTube Comment Analysis • Sentiment Charts • Word Cloud    │     │
-│  └─────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
+│  ┌─────────────────────────────────────────────────────────────────┐        │
+│  │                   Chrome Extension (Frontend)                   │        │
+│  │     YouTube Comment Analysis • Sentiment Charts • Word Cloud    │        │
+│  └─────────────────────────────────────────────────────────────────┘        │
+│                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -143,7 +143,7 @@ yt-sentiment-api/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/harish1120/yt-sentiment-api.git
    cd yt-sentiment-api
    ```
 
